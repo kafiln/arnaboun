@@ -19,7 +19,7 @@ def seed_db():
     db.session.add(
         Entry(start=date.today(), end=date.today(), difference=0))
     db.session.add(
-        Entry(start="05-11-2020", end="10-11-2020", difference=5))
+        Entry(start="11-05-2020", end="11-10-2020", difference=5))
     db.session.commit()
 
 
