@@ -15,9 +15,11 @@ services:
 
   server:
     restart: always
+    env_file: ./server/.env
     build:
       context: ./server/
       dockerfile: Dockerfile
+    command: python manage.py run -h 0.0.0.0
     ports:
       - "5000:5000"
     volumes:
@@ -35,7 +37,7 @@ services:
       - "3000:3000"
     depends_on:
       - "server"
-    environment:
-      - NODE_ENV=development
-      - CHOKIDAR_USEPOLLING=true
-      # - HOST_URL=http://192.168.99.100:5000
+    # environment:
+    #   - NODE_ENV=development
+    #   - CHOKIDAR_USEPOLLING=true
+    # - HOST_URL=http://192.168.99.100:5000
