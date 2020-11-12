@@ -1,30 +1,40 @@
 version: "3"
 services:
-  db:
+  database:
     image: postgres:10.5-alpine
-    env_file: .env
+    container_name: $POSTGRES_HOST
     ports:
-      - "5432:5432"
+      - $POSTGRES_PORT:5432
     environment:
       - POSTGRES_DB=$POSTGRES_DB
       - POSTGRES_USER=$POSTGRES_USER
       - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
     volumes:
-      - "./data:/var/lib/postgresql/data"
+      - ./data:/var/lib/postgresql/data
 
   server:
     restart: always
-    env_file: ./server/.env
     build:
       context: ./server
       dockerfile: Dockerfile
-    command: python manage.py run -h 0.0.0.0
+    command: python run.py
+    environment:
+      # DB
+      - POSTGRES_DB=$POSTGRES_DB
+      - POSTGRES_USER=$POSTGRES_USER
+      - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
+      - POSTGRES_HOST=$POSTGRES_HOST
+      - POSTGRES_PORT=$POSTGRES_PORT
+      # FLASK
+      - FLASK_ENV=$FLASK_ENV
+      - FLASK_APP=$FLASK_APP
+      - FLASK_HOST=$FLASK_HOST
     ports:
-      - "5000:5000"
+      - $FLASK_PORT:$FLASK_PORT
     volumes:
       - ./server:/usr/src/
     depends_on:
-      - "db"
+      - "database"
 
   client:
     build:

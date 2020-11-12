@@ -1,27 +1,18 @@
-from datetime import date
+import os
 
-from flask.cli import FlaskGroup
+from flask_migrate import Migrate, MigrateCommand
+from flask_script import Manager
 
-from app import Entry, app, db
+from src.app import create_app, db
 
-cli = FlaskGroup(app)
+env_name = os.getenv('FLASK_ENV')
+app = create_app(env_name)
 
+migrate = Migrate(app=app, db=db)
 
-@cli.command("init")
-def create_db():
-    db.drop_all()
-    db.create_all()
-    db.session.commit()
+manager = Manager(app=app)
 
+manager.add_command('db', MigrateCommand)
 
-@cli.command("seed")
-def seed_db():
-    db.session.add(
-        Entry(start=date.today(), end=date.today(), difference=0))
-    db.session.add(
-        Entry(start="11-05-2020", end="11-10-2020", difference=5))
-    db.session.commit()
-
-
-if __name__ == "__main__":
-    cli()
+if __name__ == '__main__':
+    manager.run()
