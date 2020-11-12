@@ -17,7 +17,6 @@ services:
     build:
       context: ./server
       dockerfile: Dockerfile
-    command: python run.py
     environment:
       # DB
       - POSTGRES_DB=$POSTGRES_DB

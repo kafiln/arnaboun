@@ -1,11 +1,13 @@
-import { useEffect } from "react";
+import CreateForm from "./components/createForm";
+import List from "./components/list";
+
 function App() {
-  useEffect(() => {
-    fetch("/api")
-      .then((r) => r.json())
-      .then(console.log);
-  }, []);
-  return <div>Hello</div>;
+  return (
+    <div>
+      <CreateForm />
+      <List />
+    </div>
+  );
 }
 
 export default App;
