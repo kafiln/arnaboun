@@ -18,7 +18,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        entries: [...state.entries, action.payload],
+        entries: [action.payload, ...state.entries],
         entry: {},
       };
     default:
