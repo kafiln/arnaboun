@@ -1,21 +1,25 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAll } from '../actions';
 
 const List = () => {
-  const [items, setItems] = useState([]);
+  const { entries, loading } = useSelector(_ => _);
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    fetch('/api/')
-      .then(res => res.json())
-      .then(res => setItems(res));
-  }, []);
-  return items.map(item => {
-    return (
-      <ul key={item.id}>
-        <li>{new Date(item.start).toLocaleDateString()}</li>
-        <li>{new Date(item.end).toLocaleDateString()}</li>
-        <li>{item.difference}</li>
-      </ul>
-    );
-  });
+    dispatch(getAll());
+  }, [dispatch]);
+
+  return loading
+    ? 'LOADING'
+    : entries.map(item => {
+        return (
+          <p key={item.id}>
+            {new Date(item.start).toLocaleDateString()} |
+            {new Date(item.end).toLocaleDateString()} | {item.difference}
+          </p>
+        );
+      });
 };
 
 export default List;

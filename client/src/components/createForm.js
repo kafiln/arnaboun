@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import { createEntry } from '../api';
 
 const MILLISECONDS_IN_ONE_DAY = 1000 * 60 * 60 * 24;
 
@@ -21,13 +22,7 @@ const CreateForm = () => {
       end,
       difference,
     };
-    fetch('/api/', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(entry),
-    })
+    createEntry(entry)
       .then(_ => {
         setEnd(null);
         setStart(null);
