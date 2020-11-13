@@ -1,19 +1,20 @@
 import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { createEntry } from '../api';
-
-const MILLISECONDS_IN_ONE_DAY = 1000 * 60 * 60 * 24;
-
-const differeneInDays = (start, end) =>
-  Math.floor(Math.abs(start - end) / MILLISECONDS_IN_ONE_DAY);
+import { useDispatch, useSelector } from 'react-redux';
+import { createEntry } from '../actions';
+import { differeneInDays } from '../time';
 
 const CreateForm = () => {
   const [start, setStart] = useState();
   const [end, setEnd] = useState();
 
+  const { loading } = useSelector(state => state);
+  const dispatch = useDispatch();
+
   const handleSubmit = e => {
     e.preventDefault();
+    if (loading) return;
     //TODO: invalid state, add user notification
     if (!end || !start) return;
     const difference = differeneInDays(start, end);
@@ -22,13 +23,9 @@ const CreateForm = () => {
       end,
       difference,
     };
-    createEntry(entry)
-      .then(_ => {
-        setEnd(null);
-        setStart(null);
-      })
-      .catch();
+    dispatch(createEntry(entry));
   };
+
   return (
     <form onSubmit={handleSubmit}>
       <DatePicker selected={start} onChange={date => setStart(date)} />

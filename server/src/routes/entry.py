@@ -1,4 +1,5 @@
-from flask import request, jsonify, Blueprint
+from flask import Blueprint, jsonify, request
+
 from ..models.entry import Entry
 
 entry_api = Blueprint('entry', __name__)
@@ -23,6 +24,6 @@ def create_date():
             difference=difference
         )
         entry.save()
-        return "entry added. entry id={}".format(entry.id)
+        return jsonify(entry.serialize())
     except Exception as e:
         return(str(e))

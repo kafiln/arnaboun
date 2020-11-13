@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAll } from '../actions';
 
 const List = () => {
-  const { entries, loading } = useSelector(_ => _);
+  const { entries, loading } = useSelector(state => state);
   const dispatch = useDispatch();
 
   useEffect(() => {
