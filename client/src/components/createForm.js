@@ -19,8 +19,8 @@ const CreateForm = () => {
     if (!end || !start) return;
     const difference = differeneInDays(start, end);
     const entry = {
-      start,
-      end,
+      start: new Date(start).toDateString(),
+      end: new Date(end).toDateString(),
       difference,
     };
     dispatch(createEntry(entry));
