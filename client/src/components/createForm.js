@@ -44,26 +44,29 @@ const CreateForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col">
-      <DatePicker value={start} setter={setStart} />
-      <DatePicker value={end} setter={setEnd} />
-      {difference && (
-        <p className="my-2 text-center">
-          The difference between the two dates is {difference}{' '}
-          {difference === 1 ? 'day' : 'days'}
-        </p>
-      )}
-      <input
-        className={`my-2 py-2 ${
-          valid
-            ? 'cursor-pointer bg-blue-300 border'
-            : 'cursor-not-allowed	bg-blue-100'
-        }`}
-        type="submit"
-        value="Save"
-        disabled={!valid}
-      />
-    </form>
+    <>
+      <h1>Add a new entry</h1>
+      <form onSubmit={handleSubmit} className="flex flex-col">
+        <DatePicker value={start} setter={setStart} />
+        <DatePicker value={end} setter={setEnd} />
+        {difference && (
+          <p className="my-2 text-center">
+            The difference between the two dates is {difference}{' '}
+            {difference === 1 ? 'day' : 'days'}
+          </p>
+        )}
+        <input
+          className={`my-2 py-2 ${
+            valid
+              ? 'cursor-pointer bg-blue-300 border'
+              : 'cursor-not-allowed	bg-blue-100'
+          }`}
+          type="submit"
+          value="Submit"
+          disabled={!valid}
+        />
+      </form>
+    </>
   );
 };
 
