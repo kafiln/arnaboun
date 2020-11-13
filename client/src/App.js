@@ -1,12 +1,13 @@
-import CreateForm from "./components/createForm";
-import List from "./components/list";
+import CreateForm from './components/createForm';
+import { Layout } from './components/layout';
+import List from './components/list';
 
 function App() {
   return (
-    <div>
+    <Layout>
       <CreateForm />
       <List />
-    </div>
+    </Layout>
   );
 }
 

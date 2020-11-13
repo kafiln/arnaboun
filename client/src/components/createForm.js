@@ -1,36 +1,68 @@
-import React, { useState } from 'react';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { createEntry } from '../actions';
 import { differeneInDays } from '../time';
+import DatePicker from './datePicker';
 
 const CreateForm = () => {
   const [start, setStart] = useState();
   const [end, setEnd] = useState();
+  const [difference, setDifference] = useState(null);
+  const [valid, setValid] = useState(false);
 
-  const { loading } = useSelector(state => state);
+  useEffect(() => {
+    if (!start || !end) {
+      setDifference(null);
+      setValid(false);
+    } else {
+      const difference = differeneInDays(start, end);
+      setDifference(difference);
+      setValid(true);
+    }
+  }, [start, end]);
+
   const dispatch = useDispatch();
 
   const handleSubmit = e => {
     e.preventDefault();
-    if (loading) return;
-    //TODO: invalid state, add user notification
-    if (!end || !start) return;
-    const difference = differeneInDays(start, end);
+    if (!valid) return;
+
     const entry = {
       start: new Date(start).toDateString(),
       end: new Date(end).toDateString(),
       difference,
     };
     dispatch(createEntry(entry));
+    clearAll();
+    setValid(false);
+  };
+
+  const clearAll = () => {
+    setDifference(null);
+    setStart(null);
+    setEnd(null);
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <DatePicker selected={start} onChange={date => setStart(date)} />
-      <DatePicker selected={end} onChange={date => setEnd(date)} />
-      <input type="submit"></input>
+    <form onSubmit={handleSubmit} className="flex flex-col">
+      <DatePicker value={start} setter={setStart} />
+      <DatePicker value={end} setter={setEnd} />
+      {difference && (
+        <p className="my-2 text-center">
+          The difference between the two dates is {difference}{' '}
+          {difference === 1 ? 'day' : 'days'}
+        </p>
+      )}
+      <input
+        className={`my-2 py-2 ${
+          valid
+            ? 'cursor-pointer bg-blue-300 border'
+            : 'cursor-not-allowed	bg-blue-100'
+        }`}
+        type="submit"
+        value="Save"
+        disabled={!valid}
+      />
     </form>
   );
 };
