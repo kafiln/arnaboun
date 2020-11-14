@@ -1,4 +1,11 @@
-import { CREATE_ENTRY, GET_ALL, makeAction, REQUEST, SUCCES } from '../actions';
+import {
+  CREATE_ENTRY,
+  FAILURE,
+  GET_ALL,
+  makeAction,
+  REQUEST,
+  SUCCES,
+} from '../actions';
 
 const initialState = {
   loading: false,
@@ -12,8 +19,12 @@ const reducer = (state = initialState, action) => {
       return { ...state, loading: true };
     case makeAction(GET_ALL, SUCCES):
       return { ...state, loading: false, entries: action.payload };
+    case makeAction(GET_ALL, FAILURE):
+      return { ...state, loading: false };
     case makeAction(CREATE_ENTRY, REQUEST):
       return { ...state, loading: true };
+    case makeAction(CREATE_ENTRY, FAILURE):
+      return { ...state, loading: false };
     case makeAction(CREATE_ENTRY, SUCCES):
       return {
         ...state,
