@@ -32,6 +32,11 @@ class Entry(db.Model):
         return Entry.query.all()
 
     @staticmethod
+    def deleteAll():
+        db.session.query(Entry).delete()
+        db.session.commit()
+
+    @staticmethod
     def serialize_list(list):
         return [item.serialize() for item in list]
 

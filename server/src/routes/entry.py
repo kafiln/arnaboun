@@ -7,8 +7,14 @@ entry_api = Blueprint('entry', __name__)
 
 @entry_api.route('/')
 def index():
-    entries = Entry.query.all()
+    entries = Entry.getAll()
     return jsonify(Entry.serialize_list(entries))
+
+
+@entry_api.route('/', methods=['DELETE'])
+def delete():
+    Entry.deleteAll()
+    return {'message': 'ok'}
 
 
 @entry_api.route('/', methods=['POST'])

@@ -2,6 +2,9 @@ export const API_URL = '/api/';
 
 export const getAll = () => fetch(API_URL).then(res => res.json());
 
+export const deleteAll = () =>
+  fetch(API_URL, { method: 'DELETE' }).then(res => res.json());
+
 export const createEntry = entry =>
   fetch(API_URL, {
     method: 'POST',

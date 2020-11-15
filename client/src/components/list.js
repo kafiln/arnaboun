@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSortBy, useTable } from 'react-table';
-import { getAll } from '../actions';
+import { deleteAll, getAll } from '../actions';
 import { formatDate } from '../time';
 
 const List = () => {
@@ -49,7 +49,7 @@ const List = () => {
   }, [dispatch]);
 
   return loading
-    ? 'LOADING'
+    ? 'LOADING' //TODO: Replace by a spinner
     : entries.length !== 0 && (
         <>
           <h1>Saved entries</h1>
@@ -96,6 +96,13 @@ const List = () => {
               })}
             </tbody>
           </table>
+          <button
+            className="p-2 my-2 bg-red-600 text-white"
+            // TODO: Add a confirmation before delete
+            onClick={() => dispatch(deleteAll())}
+          >
+            Delete all
+          </button>
         </>
       );
 };
