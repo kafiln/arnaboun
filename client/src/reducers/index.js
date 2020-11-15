@@ -1,5 +1,6 @@
 import {
   CREATE_ENTRY,
+  DELETE,
   DELETE_ALL,
   FAILURE,
   GET_ALL,
@@ -23,6 +24,11 @@ const reducer = (state = initialState, action) => {
       return { ...state, loading: false, entries: action.payload };
     case makeAction(DELETE_ALL, SUCCES):
       return initialState;
+    case makeAction(DELETE, FAILURE):
+      return { ...state, loading: false };
+    case makeAction(DELETE, SUCCES):
+      const entries = state.entries.filter(e => e.id !== action.payload);
+      return { ...state, entries, loading: false };
     case makeAction(GET_ALL, FAILURE):
     case makeAction(DELETE_ALL, FAILURE):
       return { ...state, loading: false };

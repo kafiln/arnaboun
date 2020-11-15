@@ -19,6 +19,11 @@ class Entry(db.Model):
             setattr(self, key, item)
         db.session.commit()
 
+    def delete(id):
+        entry = Entry.query.get(id)
+        db.session.delete(entry)
+        db.session.commit()
+
     def serialize(self):
         return {
             'id': self.id,

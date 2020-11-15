@@ -1,6 +1,7 @@
 export const GET_ALL = 'GET_ALL';
 export const DELETE_ALL = 'DELETE_ALL';
 export const CREATE_ENTRY = 'CREATE_ENTRY';
+export const DELETE = 'DELETE';
 
 export const REQUEST = 'REQUEST';
 export const SUCCES = 'SUCCES';
@@ -19,4 +20,9 @@ export const deleteAll = () => ({
 export const createEntry = entry => ({
   type: makeAction(CREATE_ENTRY, REQUEST),
   payload: entry,
+});
+
+export const deleteItem = id => ({
+  type: makeAction(DELETE, REQUEST),
+  payload: id,
 });

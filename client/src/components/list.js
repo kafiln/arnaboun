@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSortBy, useTable } from 'react-table';
-import { deleteAll, getAll } from '../actions';
+import { deleteAll, deleteItem, getAll } from '../actions';
 import { formatDate } from '../time';
 
 const List = () => {
@@ -26,8 +26,15 @@ const List = () => {
         id: 'difference',
         Header: 'Difference',
       },
+      {
+        Header: 'Actions',
+        canSort: false,
+        accessor: r => (
+          <button onClick={() => dispatch(deleteItem(r.id))}> delete</button>
+        ),
+      },
     ],
-    []
+    [dispatch]
   );
 
   const {

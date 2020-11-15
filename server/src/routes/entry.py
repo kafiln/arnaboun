@@ -11,6 +11,12 @@ def index():
     return jsonify(Entry.serialize_list(entries))
 
 
+@entry_api.route('/<id>', methods=['DELETE'])
+def deleteOne(id):
+    Entry.delete(id)
+    return {'id': id}
+
+
 @entry_api.route('/', methods=['DELETE'])
 def delete():
     Entry.deleteAll()
