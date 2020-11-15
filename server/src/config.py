@@ -3,8 +3,10 @@ import os
 database = os.getenv('POSTGRES_DB')
 user = os.getenv('POSTGRES_USER')
 password = os.getenv('POSTGRES_PASSWORD')
-host = os.getenv('POSTGRES_HOST')
 port = os.getenv('POSTGRES_PORT')
+env = os.getenv('FLASK_ENV')
+is_dev = env == 'development'
+host = 'database' if is_dev else os.getenv('POSTGRES_HOST')
 
 connection_string = f'postgresql+psycopg2://{user}:{password}@{host}:{port}/{database}'
 

@@ -31,7 +31,6 @@ function* removeAll() {
 function* removeOne(action) {
   try {
     const data = yield call(deleteOne, action.payload);
-    console.log(data);
     yield put({ type: makeAction(DELETE, SUCCES), payload: +data.id });
   } catch (error) {
     yield put({ type: makeAction(DELETE, FAILURE) });
