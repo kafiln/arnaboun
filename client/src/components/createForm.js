@@ -49,7 +49,7 @@ const CreateForm = () => {
       <form onSubmit={handleSubmit} className="flex flex-col">
         <DatePicker value={start} setter={setStart} />
         <DatePicker value={end} setter={setEnd} />
-        {difference && (
+        {difference !== null && (
           <p className="my-2 text-center">
             The difference between the two dates is {difference}{' '}
             {difference === 1 ? 'day' : 'days'}
