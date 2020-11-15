@@ -2,6 +2,7 @@ import React, { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSortBy, useTable } from 'react-table';
 import { getAll } from '../actions';
+import { formatDate } from '../time';
 
 const List = () => {
   const dispatch = useDispatch();
@@ -12,12 +13,12 @@ const List = () => {
     () => [
       {
         id: 'start',
-        accessor: r => new Date(r.start).toLocaleDateString(),
+        accessor: r => formatDate(r.start),
         Header: 'Start Date',
       },
       {
         id: 'end',
-        accessor: r => new Date(r.end).toLocaleDateString(),
+        accessor: r => formatDate(r.end),
         Header: 'End Date',
       },
       {
