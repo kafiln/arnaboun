@@ -12,7 +12,8 @@ function retry {
     "$@" && break || {
       if [[ $n -lt $max ]]; then
         ((n++))
-        echo "Command failed. Attempt $n/$max:"
+        echo "Command failed."
+        echo "Attempt $n/$max:"
         sleep $delay;
       else
         fail "The command has failed after $n attempts."
@@ -21,5 +22,5 @@ function retry {
   done
 }
 
-retry python manage.py db upgrade
+retry python manage.py db upgrade 2> /dev/null
 python run.py
