@@ -1,5 +1,3 @@
-from marshmallow import Schema, fields
-
 from . import db
 
 
@@ -44,10 +42,3 @@ class Entry(db.Model):
     @staticmethod
     def serialize_list(list):
         return [item.serialize() for item in list]
-
-
-class EntrySchema(Schema):
-    id = fields.Int(dump_only=True)
-    start = fields.DateTime(required=True)
-    end = fields.DateTime(required=True)
-    difference = fields.Int(required=True)
