@@ -1,6 +1,7 @@
 version: '3'
 services:
   database:
+    container_name: $POSTGRES_HOST
     image: postgres:10.5-alpine
     ports:
       - $POSTGRES_PORT:5432
@@ -13,6 +14,7 @@ services:
 
   server:
     restart: always
+    container_name: server
     build:
       context: ./server
       dockerfile: Dockerfile
@@ -31,10 +33,9 @@ services:
       - $FLASK_PORT:$FLASK_PORT
     volumes:
       - ./server:/usr/src/
-    depends_on:
-      - 'database'
 
   client:
+    container_name: client
     build:
       context: ./client
       dockerfile: Dockerfile

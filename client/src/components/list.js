@@ -28,7 +28,7 @@ const List = () => {
       },
       {
         Header: 'Actions',
-        canSort: false,
+        disableSortBy: true,
         accessor: r => (
           <button onClick={() => dispatch(deleteItem(r.id))}> delete</button>
         ),
