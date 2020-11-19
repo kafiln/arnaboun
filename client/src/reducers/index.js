@@ -11,7 +11,6 @@ import {
 
 const initialState = {
   loading: false,
-  entry: {},
   entries: [],
 };
 
@@ -41,7 +40,6 @@ const reducer = (state = initialState, action) => {
         ...state,
         loading: false,
         entries: [action.payload, ...state.entries],
-        entry: {},
       };
     default:
       return state;

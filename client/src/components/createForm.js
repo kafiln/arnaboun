@@ -59,7 +59,7 @@ const CreateForm = () => {
           className={`my-2 py-2 ${
             valid
               ? 'cursor-pointer bg-blue-300 border'
-              : 'cursor-not-allowed	bg-blue-100'
+              : 'cursor-not-allowed	bg-red-100'
           }`}
           type="submit"
           value="Submit"

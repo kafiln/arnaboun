@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useSortBy, useTable } from 'react-table';
 import { deleteAll, deleteItem, getAll } from '../actions';
 import { formatDate } from '../time';
+import Spinner from './spinner';
 
 const List = () => {
   const dispatch = useDispatch();
@@ -55,63 +56,65 @@ const List = () => {
     dispatch(getAll());
   }, [dispatch]);
 
-  return loading
-    ? 'LOADING' //TODO: Replace by a spinner
-    : entries.length !== 0 && (
-        <>
-          <h1>Saved entries</h1>
-          <table
-            {...getTableProps()}
-            className={`border-gray-500 w-full table-auto`}
-          >
-            <thead className={`border-gray-500`}>
-              {headerGroups.map(headerGroup => (
-                <tr {...headerGroup.getHeaderGroupProps()}>
-                  {headerGroup.headers.map(column => (
-                    <th
-                      className={`p-1 border border-gray-500 bg-gray-700 text-white text-center
+  return loading ? (
+    <Spinner />
+  ) : (
+    entries.length !== 0 && (
+      <>
+        <h1 className="my-2">Saved entries</h1>
+        <table
+          {...getTableProps()}
+          className={`border-gray-500 w-full table-auto`}
+        >
+          <thead className={`border-gray-500`}>
+            {headerGroups.map(headerGroup => (
+              <tr {...headerGroup.getHeaderGroupProps()}>
+                {headerGroup.headers.map(column => (
+                  <th
+                    className={`p-1 border border-gray-500 bg-gray-700 text-white text-center
                 ${column.canSort && 'cursor-pointer'}`}
-                      {...column.getHeaderProps(column.getSortByToggleProps())}
-                      style={{ textAlign: 'center' }}
-                    >
-                      {column.render('Header')}
-                    </th>
-                  ))}
-                </tr>
-              ))}
-            </thead>
-            <tbody className={`border-gray-500`} {...getTableBodyProps()}>
-              {rows.map((row, i) => {
-                prepareRow(row);
-                return (
-                  <tr
-                    className={`border-gray-500 ${i % 2 ? 'bg-gray-300' : ''} `}
-                    {...row.getRowProps()}
+                    {...column.getHeaderProps(column.getSortByToggleProps())}
+                    style={{ textAlign: 'center' }}
                   >
-                    {row.cells.map(cell => {
-                      return (
-                        <td
-                          className={`border-gray-500 p-1 border`}
-                          {...cell.getCellProps()}
-                        >
-                          {cell.render('Cell')}
-                        </td>
-                      );
-                    })}
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-          <button
-            className="p-2 my-2 bg-red-600 text-white"
-            // TODO: Add a confirmation before delete
-            onClick={() => dispatch(deleteAll())}
-          >
-            Delete all
-          </button>
-        </>
-      );
+                    {column.render('Header')}
+                  </th>
+                ))}
+              </tr>
+            ))}
+          </thead>
+          <tbody className={`border-gray-500`} {...getTableBodyProps()}>
+            {rows.map((row, i) => {
+              prepareRow(row);
+              return (
+                <tr
+                  className={`border-gray-500 ${i % 2 ? 'bg-gray-300' : ''} `}
+                  {...row.getRowProps()}
+                >
+                  {row.cells.map(cell => {
+                    return (
+                      <td
+                        className={`border-gray-500 p-1 border`}
+                        {...cell.getCellProps()}
+                      >
+                        {cell.render('Cell')}
+                      </td>
+                    );
+                  })}
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+        <button
+          className="p-2 my-2 bg-red-600 text-white"
+          // TODO: Add a confirmation before delete
+          onClick={() => dispatch(deleteAll())}
+        >
+          Delete all
+        </button>
+      </>
+    )
+  );
 };
 
 export default List;
