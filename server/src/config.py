@@ -1,11 +1,14 @@
 import os
 
-database = os.getenv('POSTGRES_DB')
-user = os.getenv('POSTGRES_USER')
-password = os.getenv('POSTGRES_PASSWORD')
-port = os.getenv('POSTGRES_PORT')
-env = os.getenv('FLASK_ENV')
-host = os.getenv('POSTGRES_HOST')
+from .constants import (FLASK_ENV, POSTGRES_DB, POSTGRES_HOST,
+                        POSTGRES_PASSWORD, POSTGRES_PORT, POSTGRES_USER)
+
+database = os.getenv(POSTGRES_DB)
+user = os.getenv(POSTGRES_USER)
+password = os.getenv(POSTGRES_PASSWORD)
+port = os.getenv(POSTGRES_PORT)
+env = os.getenv(FLASK_ENV)
+host = os.getenv(POSTGRES_HOST)
 is_dev = env == 'development'
 
 connection_string = f'postgresql+psycopg2://{user}:{password}@{host}:{port}/{database}'

@@ -1,8 +1,9 @@
-from flask import Flask, jsonify, request
+from flask import Flask
 
 from .config import app_config
+from .constants import API_PREFIX
 from .models import db
-from .models.entry import Entry
+from .models.Entry import Entry
 from .routes.entry import entry_api
 
 
@@ -16,6 +17,6 @@ def create_app(env_name):
 
     app.config.from_object(app_config[env_name])
     db.init_app(app)
-    app.register_blueprint(entry_api, url_prefix='/api')
+    app.register_blueprint(entry_api, url_prefix=API_PREFIX)
 
     return app

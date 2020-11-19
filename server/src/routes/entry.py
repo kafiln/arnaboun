@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 
-from ..models.entry import Entry
+from ..models.Entry import Entry
 
 entry_api = Blueprint('entry', __name__)
 
