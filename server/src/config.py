@@ -24,6 +24,16 @@ class Development(object):
     SQLALCHEMY_DATABASE_URI = connection_string
 
 
+class Test(object):
+    """
+    Test environment configuration
+    """
+    DEBUG = True
+    TESTING = True
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SQLALCHEMY_DATABASE_URI = connection_string
+
+
 class Production(object):
     """
     Production environment configurations
@@ -37,4 +47,5 @@ class Production(object):
 app_config = {
     'development': Development,
     'production': Production,
+    'test': Test
 }
