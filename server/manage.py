@@ -3,7 +3,7 @@ from os import getenv
 from flask_migrate import Migrate, MigrateCommand
 from flask_script import Manager
 
-from .src.app import create_app, db
+from src.app import create_app, db
 
 env_name = getenv('FLASK_ENV')
 app = create_app(env_name)

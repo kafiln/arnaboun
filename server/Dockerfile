@@ -8,12 +8,12 @@ WORKDIR /usr/src/
 
 COPY requirements.txt ./
 
-RUN pip install  -r requirements.txt
-
-COPY . ./
-# install system dependencies
+RUN pip install  -r requirements.txt --quiet
 RUN apt-get update && apt-get install -y netcat
 
+RUN useradd -ms /bin/bash user
+USER user
+COPY --chown=user:user . ./
 
 RUN chmod u+x entrypoint.sh
 
