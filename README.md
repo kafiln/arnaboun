@@ -14,6 +14,6 @@ cp .env.example .env
 docker-compose up --build
 ```
 
-- You should be then able to visit
-  `http://localhost:3000` to access the front
-  `http://localhost:5000/api` to access the backend server
+- You should be then able to visit:
+  - `http://localhost:3000` to access the front
+  - `http://localhost:5000/api` to access the backend server
